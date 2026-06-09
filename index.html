@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minimum — Card Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="felt-texture"></div>
+
+    <header class="game-header">
+      <div class="brand">
+        <span class="brand-mark">♠</span>
+        <h1>Minimum</h1>
+      </div>
+      <div class="header-meta">
+        <div class="round-badge" id="roundBadge">Round 1 of 7</div>
+        <div class="cards-badge" id="cardsBadge">7 cards each</div>
+      </div>
+    </header>
+
+    <main class="table">
+      <!-- Opponents -->
+      <section class="opponents" id="opponents"></section>
+
+      <!-- Center play area -->
+      <section class="center-stage">
+        <div class="joker-panel" id="jokerPanel">
+          <span class="joker-label">Joker Rank</span>
+          <div class="joker-card-slot" id="jokerSlot">
+            <span class="placeholder">—</span>
+          </div>
+          <p class="joker-hint">All cards of this rank count as 0</p>
+        </div>
+
+        <div class="piles-row">
+          <div class="pile draw-pile" id="drawPile">
+            <div class="pile-stack">
+              <div class="card card-back stack-card"></div>
+              <div class="card card-back stack-card offset-1"></div>
+              <div class="card card-back stack-card offset-2"></div>
+            </div>
+            <span class="pile-label">Draw</span>
+            <span class="pile-count" id="drawCount">0</span>
+          </div>
+
+          <div class="turn-indicator" id="turnIndicator">
+            <span class="turn-dot"></span>
+            <span id="turnText">Dealing…</span>
+          </div>
+
+          <div class="pile discard-pile" id="discardPile">
+            <div class="discard-slot" id="discardSlot"></div>
+            <span class="pile-label">Discard</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Player hand -->
+      <section class="player-zone">
+        <div class="player-info">
+          <div class="player-avatar human">You</div>
+          <div class="player-stats">
+            <span class="hand-total" id="handTotal">Total: —</span>
+            <span class="player-score" id="playerScore">Score: 0</span>
+          </div>
+        </div>
+        <div class="hand-row" id="playerHand"></div>
+        <div class="action-bar" id="actionBar">
+          <p class="action-hint" id="actionHint">Select cards to discard, then choose where to draw.</p>
+          <div class="action-buttons">
+            <button class="btn btn-ghost" id="btnDiscardDraw" disabled>Discard &amp; Draw from Pile</button>
+            <button class="btn btn-ghost" id="btnDiscardTake" disabled>Discard &amp; Take Discard</button>
+            <button class="btn btn-call" id="btnMinimum" disabled>Call Minimum</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Scoreboard sidebar -->
+    <aside class="scoreboard" id="scoreboard"></aside>
+
+    <!-- Overlays -->
+    <div class="overlay hidden" id="roundOverlay">
+      <div class="overlay-card">
+        <h2 id="overlayTitle">Round Complete</h2>
+        <div id="overlayContent"></div>
+        <button class="btn btn-primary" id="overlayBtn">Continue</button>
+      </div>
+    </div>
+
+    <div class="overlay" id="startOverlay">
+      <div class="overlay-card start-card">
+        <div class="start-hero">
+          <span class="hero-suit">♦</span>
+          <h2>Minimum</h2>
+          <p class="tagline">Seven rounds. Lowest hand wins the pot.</p>
+        </div>
+        <ul class="rules-summary">
+          <li>Each round deals fewer cards — 7 down to 1</li>
+          <li>A random rank becomes joker (worth 0)</li>
+          <li>Discard first, then draw one card</li>
+          <li>Call <strong>Minimum</strong> when you think you're lowest</li>
+          <li>Winner takes 10 points from each loser</li>
+          <li>Wrong Minimum call costs 20 — winner gets the bonus</li>
+        </ul>
+        <div class="start-options">
+          <label>
+            Players
+            <select id="playerCount">
+              <option value="2">2 Players</option>
+              <option value="3">3 Players</option>
+              <option value="4" selected>4 Players</option>
+            </select>
+          </label>
+        </div>
+        <button class="btn btn-primary btn-large" id="btnStart">Deal Round 1</button>
+      </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <div class="flying-cards" id="flyingCards"></div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
